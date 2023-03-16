@@ -46,14 +46,14 @@ if(error){
                   Population: <span>{countrySearched[0].population}</span>
                 </p>
                 <p>
-                  Region: <span>{}</span>
+                  Region: <span>{countrySearched[0].region}</span>
                 </p>
 
                 <p>
-                  Sub Region: <span>{}</span>
+                  Sub Region: <span>{countrySearched[0].subregion}</span>
                 </p>
                 <p>
-                  Capital: <span>{}</span>
+                  Capital: <span>{countrySearched[0].capital}</span>
                 </p>
               </div>
 
