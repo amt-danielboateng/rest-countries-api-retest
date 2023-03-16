@@ -23,6 +23,10 @@ if(error){
   console.log(error);
 }
 
+return () => {
+  dispatch(reset())
+}
+
 }, [dispatch, code, error])
 
   return (
@@ -59,22 +63,33 @@ if(error){
 
               <div className="detail-right">
                 <p>
-                  Top Level Domain: <span>{}</span>
+                  Top Level Domain: <span>{countrySearched[0].tld[0]}</span>
                 </p>
                 <p>
                   Currencies:
-                  <span></span>
+                  <span>{Object.values(countrySearched[0].currencies).map((item, index) =>{
+                    return item.name
+                  }).join(",")}</span>
                 </p>
 
                 <p>
                   Languages:
-                  <span></span>
+                  <span>{Object.values(countrySearched[0].languages).map((item, index) =>{
+                    return item;
+                  }).join(",")}</span>
                 </p>
               </div>
             </div>
 
             <div className="border">
               <p>Border Countries:</p>
+              {countrySearched[0].borders ? (countrySearched[0].borders.map((item, index) =>{
+                return (
+                  <Link className='border-name' to={`/${item}`} key={index}>
+                    <p>{item}</p>
+                  </Link>
+                )
+              })) : (<span>No borders</span>)}
             </div>
           </div>
         </>) : (<div>No details found</div>)}

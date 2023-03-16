@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../features/countries/countriesSlice";
-import { showAllCountries } from "../../features/countries/countriesAction";
+import { searchByRegion, showAllCountries } from "../../features/countries/countriesAction";
 import "./country.css";
 
 const Country = () => {
-  const { countriesData, loading, success, error } = useSelector(
+  const { countriesData, loading, success, error, region } = useSelector(
     (state) => state.country
   );
 
@@ -16,14 +16,18 @@ const Country = () => {
   useEffect(() => {
     dispatch(showAllCountries());
 
-    if (success) {
-      console.log("Avoid setting component state here.");
+    //if (success) {
+      //console.log("Avoid setting component state here.");
+    //}
+
+    if(region) {
+      dispatch(searchByRegion(region))
     }
 
     if (error) {
       console.log(error);
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, success, region]);
 
   return (
     <section className="country-container">
