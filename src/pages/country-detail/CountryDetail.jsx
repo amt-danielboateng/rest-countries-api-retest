@@ -1,25 +1,49 @@
+import {useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import "./country-detail.css";
 
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { searchByCode } from '../../features/countries/countriesAction';
+import {reset} from '../../features/countries/countriesSlice';
+
 const CountryDetail = () => {
+
+const {loading, error, countrySearched} = useSelector((state) => state.country);
+
+const dispatch = useDispatch();
+const {code} = useParams();
+
+useEffect(() =>{
+if(code){
+  dispatch(searchByCode(code.toLowerCase()));
+}
+
+if(error){
+  console.log(error);
+}
+
+}, [dispatch, code, error])
+
   return (
     <section className="country-detail-container">
-      <div className="back-button" to="/">
-        <i className="fa-solid fa-arrow-left"></i> Back
-      </div>
+      <Link className="back-button" to="/">
+        <i className="fas fa-arrow-left"></i> Back
+      </Link>
 
       <div className="country-detail-content">
-        <>
-          <img src="#" alt="name" className="country-detail-image" />
+        {countrySearched.length > 0 ? ( <>
+          <img src={countrySearched[0].flags.png} alt={countrySearched[0].flags.alt} className="country-detail-image" />
 
           <div className="country-detail-right">
-            <h1></h1>
+            <h1>{countrySearched[0].name.common}</h1>
             <div className="details">
               <div className="detail-left">
                 <p>
-                  Offcial Name: <span>{}</span>
+                  Offcial Name: <span>{countrySearched[0].name.official}</span>
                 </p>
                 <p>
-                  Population: <span>{}</span>
+                  Population: <span>{countrySearched[0].population}</span>
                 </p>
                 <p>
                   Region: <span>{}</span>
@@ -53,7 +77,8 @@ const CountryDetail = () => {
               <p>Border Countries:</p>
             </div>
           </div>
-        </>
+        </>) : (<div>No details found</div>)}
+       
       </div>
     </section>
   );
