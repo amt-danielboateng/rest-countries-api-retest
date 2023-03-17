@@ -17,7 +17,7 @@ const handleDropdown = () => {
 
 useEffect(() => {
   if(filter !== ""){
-dispatch(setRegion(filter));
+dispatch(setRegion(filter.toLowerCase()));
   }
 
 }, [dispatch, filter])

@@ -9,6 +9,7 @@ const Search = () => {
 
       <input
         type="text"
+        readOnly
         placeholder="Search for a country"
         className="search-input"
         value=""
